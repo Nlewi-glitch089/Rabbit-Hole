@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rabbit Hole: follow your curiosity and see where it leads.">
+  <title>Rabbit Hole</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23321B4D'/%3E%3Cellipse cx='16' cy='17' rx='11' ry='6' fill='%236B3FA0' stroke='%23D6A84F' stroke-width='1.2'/%3E%3Cellipse cx='16' cy='18' rx='7' ry='3.6' fill='%23241B29'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+
+  <!-- =====================================================
+       NAVIGATION (hidden on the Welcome screen)
+       Any element with data-go="screen-name" switches screens.
+       ===================================================== -->
+  <header class="navbar" id="navbar" hidden>
+    <div class="navbar__inner">
+      <button class="logo logo--light" data-go="welcome" aria-label="Rabbit Hole welcome screen">
+        <span class="logo__mark" aria-hidden="true"></span>
+        <span class="logo__text">Rabbit Hole</span>
+      </button>
+
+      <nav class="navbar__links" aria-label="Main">
+        <button class="navbar__link" data-go="home" data-nav="home"><span class="suit">&hearts;</span>Home</button>
+        <button class="navbar__link" data-go="start" data-nav="start"><span class="suit">&clubs;</span>New Hole</button>
+        <button class="navbar__link" data-go="collection" data-nav="collection"><span class="suit">&diams;</span>Collection</button>
+        <button class="navbar__link" data-go="profile" data-nav="profile"><span class="suit">&spades;</span>Wonderland</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- =====================================================
+         SCREEN 1: WELCOME
+         ===================================================== -->
+    <section class="screen welcome is-active" id="screen-welcome">
+      <div class="welcome__inner">
+        <div class="welcome__copy">
+          <span class="logo">
+            <span class="logo__mark" aria-hidden="true"></span>
+            <span class="logo__text">Rabbit Hole</span>
+          </span>
+
+          <p class="eyebrow welcome__eyebrow"><span class="suit suit--red">&hearts;</span> A journal for curious minds</p>
+          <h1 class="welcome__title">Curiosity has <em>no bottom.</em></h1>
+          <p class="welcome__lead">
+            Capture the things that make you wonder “wait… how does that work?” Then follow them,
+            one discovery at a time, and see how far down they go.
+          </p>
+
+          <div class="welcome__actions">
+            <button class="btn btn--primary" data-go="start">Start a Rabbit Hole <span class="arrow">↓</span></button>
+            <button class="btn btn--secondary" data-go="home">Explore My Rabbit Holes</button>
+          </div>
+        </div>
+
+        <!-- One example rabbit hole, drawn as cards falling into the hole -->
+        <div class="welcome__visual" aria-label="Example: a question falling down to the A* algorithm">
+          <div class="falling-card falling-card--1">
+            <span class="falling-card__corner">Q<span class="suit">&clubs;</span></span>
+            <span class="falling-card__title">Why do NPCs behave strangely?</span>
+          </div>
+          <div class="falling-card falling-card--2">
+            <span class="falling-card__corner">1<span class="suit">&spades;</span></span>
+            <span class="falling-card__title">Behavior Trees</span>
+          </div>
+          <div class="falling-card falling-card--3">
+            <span class="falling-card__corner">2<span class="suit">&clubs;</span></span>
+            <span class="falling-card__title">Game AI</span>
+          </div>
+          <div class="falling-card falling-card--4">
+            <span class="falling-card__corner">4<span class="suit suit--red">&diams;</span></span>
+            <span class="falling-card__title">A* Algorithm</span>
+          </div>
+          <span class="prints welcome__prints" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <div class="the-hole" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         SCREEN 2: HOME
+         ===================================================== -->
+    <section class="screen page home" id="screen-home">
+      <header class="home__header">
+        <h1 class="home__greeting">Good afternoon, Nakerra.</h1>
+        <p class="home__subtitle">Where are we falling today?</p>
+      </header>
+
+      <h2 class="eyebrow section-title"><span class="suit suit--red">&hearts;</span> Continue exploring</h2>
+
+      <article class="continue-card">
+        <div>
+          <p class="continue-card__label">Rabbit Hole</p>
+          <h3 class="continue-card__question">Why do video game NPCs behave strangely?</h3>
+          <div class="stats-row">
+            <span class="depth-badge"><span class="depth-badge__rabbit">🐇</span>4 levels deep</span>
+            <span><strong>6</strong> discoveries</span>
+          </div>
+          <button class="btn btn--primary" data-go="hole">Continue <span class="arrow">↓</span></button>
+        </div>
+
+        <!-- The path taken so far -->
+        <ol class="trail" aria-label="Your path so far">
+          <li><span class="trail__level">1</span>Behavior Trees</li>
+          <li><span class="trail__level">2</span>Game AI</li>
+          <li><span class="trail__level">3</span>Pathfinding</li>
+          <li class="is-current"><span class="trail__level">4</span>A* Algorithm</li>
+        </ol>
+      </article>
+
+      <h2 class="eyebrow section-title"><span class="suit">&clubs;</span> Your Rabbit Holes</h2>
+
+      <!-- In this wireframe every Rabbit Hole opens the same example hole -->
+      <div class="hole-grid">
+        <button class="card hole-card" style="--tilt: -1.4deg" data-go="hole">
+          <span class="card__corner card__corner--top">4<span class="suit">&clubs;</span></span>
+          <span class="hole-card__question">Why do NPCs behave strangely?</span>
+          <span class="hole-card__meta">4 levels deep · 6 discoveries</span>
+          <span class="hole-card__last">Last found: <strong>A* Algorithm</strong></span>
+          <span class="card__corner card__corner--bottom">4<span class="suit">&clubs;</span></span>
+        </button>
+
+        <button class="card hole-card" style="--tilt: 1.2deg" data-go="hole">
+          <span class="card__corner card__corner--top">2<span class="suit suit--red">&hearts;</span></span>
+          <span class="hole-card__question">How does music affect memory?</span>
+          <span class="hole-card__meta">2 levels deep · 4 discoveries</span>
+          <span class="hole-card__last">Last found: <strong>The Reminiscence Bump</strong></span>
+          <span class="card__corner card__corner--bottom">2<span class="suit suit--red">&hearts;</span></span>
+        </button>
+
+        <button class="card hole-card" style="--tilt: -0.6deg" data-go="hole">
+          <span class="card__corner card__corner--top">2<span class="suit suit--red">&diams;</span></span>
+          <span class="hole-card__question">Why do we dream?</span>
+          <span class="hole-card__meta">2 levels deep · 2 discoveries</span>
+          <span class="hole-card__last">Last found: <strong>Lucid Dreaming</strong></span>
+          <span class="card__corner card__corner--bottom">2<span class="suit suit--red">&diams;</span></span>
+        </button>
+
+        <button class="card hole-card" style="--tilt: 1.6deg" data-go="hole">
+          <span class="card__corner card__corner--top">3<span class="suit">&spades;</span></span>
+          <span class="hole-card__question">How do roller coasters stay on the track?</span>
+          <span class="hole-card__meta">3 levels deep · 3 discoveries</span>
+          <span class="hole-card__last">Last found: <strong>Clothoid Loops</strong></span>
+          <span class="card__corner card__corner--bottom">3<span class="suit">&spades;</span></span>
+        </button>
+
+        <button class="new-hole-tile" data-go="start">
+          <span class="new-hole-tile__plus">+</span>
+          Start a New Rabbit Hole
+          <span class="new-hole-tile__hint">What’s on your mind?</span>
+        </button>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         SCREEN 3: START A RABBIT HOLE
+         ===================================================== -->
+    <section class="screen page start" id="screen-start">
+      <form class="start__form" id="start-form">
+        <p class="start__suits" aria-hidden="true">
+          <span class="suit">&spades;</span><span class="suit suit--red">&hearts;</span><span class="suit">&clubs;</span><span class="suit suit--red">&diams;</span>
+        </p>
+        <label for="curiosity" class="start__prompt">What are you curious about?</label>
+        <p class="start__hint">A question, a half-thought, something you noticed today. It doesn’t need to be perfect.</p>
+        <textarea id="curiosity" class="start__input" rows="3" placeholder="Why do video game NPCs behave strangely?"></textarea>
+        <button type="submit" class="btn btn--primary start__submit">Fall Down the Rabbit Hole <span class="arrow">↓</span></button>
+      </form>
+    </section>
+
+
+    <!-- =====================================================
+         SCREEN 4: RABBIT HOLE (exploration)
+         The tree is nested lists. CSS draws the connecting lines:
+         sideways branches on desktop, an indented path on mobile.
+         ===================================================== -->
+    <section class="screen page explore" id="screen-hole">
+      <button class="btn btn--text" data-go="home">← All Rabbit Holes</button>
+
+      <header class="explore__header">
+        <div>
+          <p class="eyebrow"><span class="suit">&clubs;</span> You are exploring</p>
+          <div class="stats-row">
+            <span class="depth-badge"><span class="depth-badge__rabbit">🐇</span>4 levels deep</span>
+            <span><strong>6</strong> discoveries</span>
+          </div>
+          <p class="explore__status">Last stop: <strong>A* Algorithm</strong>. Where does it lead?</p>
+        </div>
+        <button class="btn btn--primary" data-discovery="dijkstra" data-fall>Keep digging <span class="arrow">↓</span></button>
+      </header>
+
+      <div class="explore__frame">
+        <div class="hole-map">
+          <ul>
+            <li>
+              <div class="root-card">
+                <span class="root-card__label">The question</span>
+                <h1 class="root-card__question">Why do NPCs behave strangely?</h1>
+              </div>
+              <ul>
+                <li>
+                  <button class="card map-card" style="--tilt: -1.2deg" data-discovery="behavior-trees">
+                    <span class="card__corner card__corner--top">1<span class="suit">&spades;</span></span>
+                    <span class="card__category">Technology</span>
+                    <span class="card__title">Behavior Trees</span>
+                    <span class="card__corner card__corner--bottom">1<span class="suit">&spades;</span></span>
+                  </button>
+                  <ul>
+                    <li>
+                      <button class="card map-card" style="--tilt: 1deg" data-discovery="game-ai">
+                        <span class="card__corner card__corner--top">2<span class="suit">&clubs;</span></span>
+                        <span class="card__category">Games</span>
+                        <span class="card__title">Game AI</span>
+                        <span class="card__corner card__corner--bottom">2<span class="suit">&clubs;</span></span>
+                      </button>
+                      <ul>
+                        <li>
+                          <button class="card map-card" style="--tilt: -0.8deg" data-discovery="pathfinding">
+                            <span class="card__corner card__corner--top">3<span class="suit">&spades;</span></span>
+                            <span class="card__category">Technology</span>
+                            <span class="card__title">Pathfinding</span>
+                            <span class="card__corner card__corner--bottom">3<span class="suit">&spades;</span></span>
+                          </button>
+                          <ul>
+                            <li>
+                              <button class="card map-card map-card--last" style="--tilt: 1.4deg" data-discovery="a-star">
+                                <span class="map-card__flag">Last stop</span>
+                                <span class="card__corner card__corner--top">4<span class="suit suit--red">&diams;</span></span>
+                                <span class="card__category">Science</span>
+                                <span class="card__title">A* Algorithm</span>
+                                <span class="card__corner card__corner--bottom">4<span class="suit suit--red">&diams;</span></span>
+                              </button>
+                              <ul>
+                                <li>
+                                  <button class="dig-card" data-discovery="dijkstra" data-fall>
+                                    <span class="prints" aria-hidden="true"><i></i><i></i></span>
+                                    <span class="dig-card__question">Where does this lead?</span>
+                                    <span class="dig-card__action">Keep digging ↓</span>
+                                  </button>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <button class="card map-card" style="--tilt: 1.6deg" data-discovery="procedural-generation">
+                            <span class="card__corner card__corner--top">3<span class="suit">&spades;</span></span>
+                            <span class="card__category">Technology</span>
+                            <span class="card__title">Procedural Generation</span>
+                            <span class="card__corner card__corner--bottom">3<span class="suit">&spades;</span></span>
+                          </button>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <button class="card map-card" style="--tilt: -1.6deg" data-discovery="uncanny-valley">
+                    <span class="card__corner card__corner--top">1<span class="suit suit--red">&hearts;</span></span>
+                    <span class="card__category">Design</span>
+                    <span class="card__title">The Uncanny Valley</span>
+                    <span class="card__corner card__corner--bottom">1<span class="suit suit--red">&hearts;</span></span>
+                  </button>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="explore__hint">
+        <span class="prints" aria-hidden="true"><i></i><i></i></span>
+        Open any card to read it. The dashed card shows where the path goes next.
+      </p>
+    </section>
+
+
+    <!-- =====================================================
+         SCREEN 5: DISCOVERY
+         wireframe.js fills the elements marked with id="detail-…"
+         using the discovery that was clicked.
+         ===================================================== -->
+    <section class="screen page detail" id="screen-discovery">
+      <nav class="detail__trail" id="detail-trail" aria-label="Path to this discovery"></nav>
+
+      <div class="detail__layout">
+        <div class="detail__card-wrap">
+          <div class="card detail__card" id="detail-card">
+            <span class="card__corner card__corner--top"><span id="detail-rank-top"></span><span class="suit" id="detail-suit-top"></span></span>
+            <span class="card__category" id="detail-category"></span>
+            <h1 class="detail__title" id="detail-title"></h1>
+            <span class="suit detail__big-suit" id="detail-big-suit"></span>
+            <span class="card__corner card__corner--bottom"><span id="detail-rank-bottom"></span><span class="suit" id="detail-suit-bottom"></span></span>
+          </div>
+          <span class="detail__stamp" id="detail-stamp"></span>
+        </div>
+
+        <div>
+          <p class="eyebrow"><span class="suit suit--gold">✦</span> You found something interesting.</p>
+          <p class="detail__summary" id="detail-summary"></p>
+
+          <aside class="detail__source">
+            <span class="detail__source-label">Source</span>
+            <span id="detail-source"></span>
+          </aside>
+
+          <div class="detail__actions">
+            <button class="btn btn--primary" id="go-deeper" data-fall>Go Deeper <span class="arrow">↓</span></button>
+            <button class="btn btn--secondary" id="branch-off" data-go="start">Branch Off <span class="arrow arrow--right">→</span></button>
+            <button class="btn btn--text" data-go="hole">Back to Rabbit Hole</button>
+          </div>
+          <p class="detail__note" id="detail-note"></p>
+        </div>
+      </div>
+
+      <section class="detail__related">
+        <h2 class="eyebrow section-title"><span class="suit">&clubs;</span> Another path?</h2>
+        <div class="related-grid" id="detail-related"></div>
+      </section>
+    </section>
+
+
+    <!-- =====================================================
+         SCREEN 6: MY COLLECTION
+         ===================================================== -->
+    <section class="screen page collection" id="screen-collection">
+      <header class="page-header">
+        <p class="eyebrow"><span class="suit suit--red">&diams;</span> A cabinet of curiosities</p>
+        <h1 class="page-header__title">My Collection</h1>
+        <p class="page-header__subtitle">Everything you’ve picked up along the way, each kept on its shelf.</p>
+      </header>
+
+      <div class="shelf">
+        <h2 class="shelf__plaque"><span class="suit">&spades;</span>Technology <span class="shelf__count">3</span></h2>
+        <div class="shelf__items">
+          <button class="card specimen-card" style="--tilt: -1.2deg" data-discovery="behavior-trees">
+            <span class="card__corner card__corner--top">1<span class="suit">&spades;</span></span>
+            <span class="card__title">Behavior Trees</span>
+            <span class="specimen-card__text">How NPCs organize their decisions.</span>
+          </button>
+          <button class="card specimen-card" style="--tilt: 1deg" data-discovery="pathfinding">
+            <span class="card__corner card__corner--top">3<span class="suit">&spades;</span></span>
+            <span class="card__title">Pathfinding</span>
+            <span class="specimen-card__text">Getting from here to there without walls.</span>
+          </button>
+          <button class="card specimen-card" style="--tilt: -0.6deg" data-discovery="procedural-generation">
+            <span class="card__corner card__corner--top">3<span class="suit">&spades;</span></span>
+            <span class="card__title">Procedural Generation</span>
+            <span class="specimen-card__text">Rules and randomness that build worlds.</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="shelf">
+        <h2 class="shelf__plaque"><span class="suit suit--red">&diams;</span>Science <span class="shelf__count">3</span></h2>
+        <div class="shelf__items">
+          <button class="card specimen-card" style="--tilt: 1.4deg" data-discovery="a-star">
+            <span class="card__corner card__corner--top">4<span class="suit suit--red">&diams;</span></span>
+            <span class="card__title">A* Algorithm</span>
+            <span class="specimen-card__text">The shortcut-finder from 1968.</span>
+          </button>
+          <button class="card specimen-card" style="--tilt: -1deg" data-discovery="reminiscence-bump">
+            <span class="card__corner card__corner--top">1<span class="suit suit--red">&diams;</span></span>
+            <span class="card__title">The Reminiscence Bump</span>
+            <span class="specimen-card__text">Why teenage songs stick forever.</span>
+          </button>
+          <button class="card specimen-card" style="--tilt: 0.8deg" data-discovery="rem-sleep">
+            <span class="card__corner card__corner--top">1<span class="suit suit--red">&diams;</span></span>
+            <span class="card__title">REM Sleep</span>
+            <span class="specimen-card__text">Where the vivid dreams live.</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="shelf">
+        <h2 class="shelf__plaque"><span class="suit">&clubs;</span>Games <span class="shelf__count">1</span></h2>
+        <div class="shelf__items">
+          <button class="card specimen-card" style="--tilt: -1.4deg" data-discovery="game-ai">
+            <span class="card__corner card__corner--top">2<span class="suit">&clubs;</span></span>
+            <span class="card__title">Game AI</span>
+            <span class="specimen-card__text">Seeming smart, not being smart.</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="shelf">
+        <h2 class="shelf__plaque"><span class="suit suit--red">&hearts;</span>Design <span class="shelf__count">2</span></h2>
+        <div class="shelf__items">
+          <button class="card specimen-card" style="--tilt: 1.2deg" data-discovery="uncanny-valley">
+            <span class="card__corner card__corner--top">1<span class="suit suit--red">&hearts;</span></span>
+            <span class="card__title">The Uncanny Valley</span>
+            <span class="specimen-card__text">Almost human is the creepiest.</span>
+          </button>
+          <button class="card specimen-card" style="--tilt: -0.8deg" data-discovery="clothoid-loops">
+            <span class="card__corner card__corner--top">1<span class="suit suit--red">&hearts;</span></span>
+            <span class="card__title">Clothoid Loops</span>
+            <span class="specimen-card__text">Why coaster loops are teardrops.</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="shelf">
+        <h2 class="shelf__plaque"><span class="suit">&spades;</span>History <span class="shelf__count">1</span></h2>
+        <div class="shelf__items">
+          <button class="card specimen-card" style="--tilt: 1deg" data-discovery="nostalgia">
+            <span class="card__corner card__corner--top">2<span class="suit">&spades;</span></span>
+            <span class="card__title">Nostalgia</span>
+            <span class="specimen-card__text">Once a medical diagnosis.</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="shelf">
+        <h2 class="shelf__plaque"><span class="suit suit--gold">✦</span>Random <span class="shelf__count">1</span></h2>
+        <div class="shelf__items">
+          <button class="card specimen-card" style="--tilt: -1.2deg" data-discovery="zeigarnik-effect">
+            <span class="card__corner card__corner--top">2<span class="suit suit--gold">✦</span></span>
+            <span class="card__title">The Zeigarnik Effect</span>
+            <span class="specimen-card__text">Unfinished things nag at you.</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         SCREEN 7: PROFILE / PROGRESS
+         (all numbers are visual examples)
+         ===================================================== -->
+    <section class="screen page profile" id="screen-profile">
+      <header class="page-header page-header--ruled">
+        <p class="eyebrow"><span class="suit">&spades;</span> Exploration record</p>
+        <h1 class="page-header__title profile__title">Nakerra’s Wonderland</h1>
+        <p class="profile__subtitle">Everywhere your curiosity has taken you, so far.</p>
+      </header>
+
+      <div class="stats">
+        <div class="stat"><span class="suit stat__suit">&clubs;</span><span class="stat__value">14</span><span class="stat__label">Rabbit Holes</span><span class="stat__note">questions followed</span></div>
+        <div class="stat"><span class="suit suit--red stat__suit">&diams;</span><span class="stat__value">63</span><span class="stat__label">Discoveries</span><span class="stat__note">things found</span></div>
+        <div class="stat"><span class="suit stat__suit">&spades;</span><span class="stat__value">8</span><span class="stat__label">Deep Explorations</span><span class="stat__note">5+ levels down</span></div>
+        <div class="stat"><span class="suit suit--red stat__suit">&hearts;</span><span class="stat__value">12</span><span class="stat__label">Connections</span><span class="stat__note">ideas that met</span></div>
+      </div>
+
+      <h2 class="eyebrow section-title"><span class="suit suit--red">&hearts;</span> Achievements</h2>
+
+      <div class="achievements">
+        <article class="achievement">
+          <span class="achievement__seal"><span class="suit">&clubs;</span></span>
+          <div>
+            <h3 class="achievement__title">Down the Hole</h3>
+            <p class="achievement__text">Reached 5 discoveries in one Rabbit Hole.</p>
+            <p class="achievement__status">Unlocked</p>
+          </div>
+        </article>
+        <article class="achievement">
+          <span class="achievement__seal"><span class="suit">&diams;</span></span>
+          <div>
+            <h3 class="achievement__title">Curious Creature</h3>
+            <p class="achievement__text">Started 10 Rabbit Holes.</p>
+            <p class="achievement__status">Unlocked</p>
+          </div>
+        </article>
+        <article class="achievement achievement--locked">
+          <span class="achievement__seal"><span class="suit">&spades;</span></span>
+          <div>
+            <h3 class="achievement__title">Going Deeper</h3>
+            <p class="achievement__text">Reached 10 levels in one Rabbit Hole.</p>
+            <div class="achievement__track"><div class="achievement__bar" style="width: 40%"></div></div>
+            <p class="achievement__progress">4 / 10 levels. Keep digging.</p>
+          </div>
+        </article>
+        <article class="achievement">
+          <span class="achievement__seal"><span class="suit">&hearts;</span></span>
+          <div>
+            <h3 class="achievement__title">Connect the Dots</h3>
+            <p class="achievement__text">Connected two different topics.</p>
+            <p class="achievement__status">Unlocked</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="wireframe.js"></script>
+</body>
+</html>
